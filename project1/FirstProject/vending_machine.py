@@ -26,13 +26,19 @@ prices = get_prices()
 
 # prices 출력
 print(prices)
+print('최솟값',min(prices))
 
 # 현금 투입 함수
-def insert_cash(money):
-    print(f"현재 잔액 : {m}원", money) # 최초잔액 표시
-    get_prices()
-
-    # if money >= min(prices):
-    #     print("ok")
-    #     # 메뉴 고르기 함수 출력
-    # else money < min(prices):
+balance = 0 #이 부분 어떻게 java의 private 변수처럼 외부 접근 방지할지 고민
+def insert_cash():
+    try :
+        money = int(input("현금을 투입해주십시오(🚨정수만 입력하시오):"))
+        balance = money
+        print(f"투입하신 금액은 {balance}원 입니다.")  # 현재 잔액 표시
+        if balance >= min(prices):
+            print('메뉴고르기 함수 출력')  # 메뉴 선택 기능 호출
+        else:
+            print("투입 금액이 부족합니다.")
+    except ValueError:
+        print("현금만 투입해 주십시오(정수만 입력해 주십시오).")  # 입력 값이 정수가 아닌 경우 처리
+insert_cash()
