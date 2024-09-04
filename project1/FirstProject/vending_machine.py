@@ -2,7 +2,10 @@
 
 # 중첩 딕셔너리를 사용한 메뉴 생성
 menu = {1: {'콜라': 500}, 2: {'사이다': 500}, 3: {'물': 800}, 4: {'파워에이드': 1000}}
-# menu_name = list(menu.keys())
+# 키 값 추출
+keys = menu.keys()
+# 키 값을 리스트로 변환
+key_list = list(keys)
 
 # 메뉴 가격만 추출하기
 def get_prices():
@@ -42,10 +45,10 @@ def insert_cash(money):
     try :
         cash = int(input("현금을 투입해주십시오:"))
         money += cash
-        if cash == 0: #거래 종료
+        if cash == 0: # 거래 종료
             print(f"거래가 종료되었습니다. 잔액 {money}원을 받아주십시오.")
             return 0
-        elif money > 0:
+        elif money > 0: # 다음 단계로
             money = choose(money)
             return money
     except Exception :
@@ -55,15 +58,19 @@ def insert_cash(money):
 # 메뉴 선택 함수
 def choose(inserted) :
     try :
+        print("=====================================================")
+        print(f"투입금액: {inserted}원")
         menu_num = int(input("구매하실 음료 번호를 메뉴에서 선택해 주십시오:"))
-        if inserted >= prices[menu_num-1]:
-            print(f"{menu_num}번 {menu_names[menu_num-1]}을 선택하셨습니다. ")
-            # 거스름돈 계산 & 음료 제공 함수 호출
-            inserted = process_order(menu_num-1, inserted)
-            return inserted
-        else :
-            print("투입 금액이 부족합니다.")
-            return inserted
+        if menu_num >= min(key_list) and menu_num <= max(key_list) : #입력한 값이 딕셔너리 키값 범위내에 있는지 필터링
+            if menu_num % 1 == 0 : # 입력한 값이 정수인지 필터링
+                if inserted >= prices[menu_num - 1]:
+                    print(f"{menu_num}번 {menu_names[menu_num - 1]}을 선택하셨습니다. ")
+                    # 거스름돈 계산 & 음료 제공 함수 호출
+                    inserted = process_order(menu_num - 1, inserted)
+                    return inserted
+                else:
+                    print("투입 금액이 부족합니다.")
+                    return inserted
     except Exception:
         print("메뉴에 있는 번호를 선택해주셔야 합니다.")
         return inserted
