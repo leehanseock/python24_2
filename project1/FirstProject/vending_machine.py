@@ -36,19 +36,20 @@ def print_menu():
 
 # 현금 투입 함수
 # balance = 0 #이 부분 어떻게 java의 private 변수처럼 외부 접근 방지할지 고민
-def insert_cash():
-    while True :
-        try:
-            print("(🚨정수만 입력하세요. 0을 입력시 구매가 종료됩니다.)")
-            money=0
-            print(f"투입금액: {money}원")
-            money += int(input("현금을 투입해주십시오:"))
-            if money==0 : break # 루프 탈출(구매 종료)
-            print(f"투입하신 금액은 {money}원 입니다.")  # 현재 잔액 표시
-            choose(money)  # 메뉴 선택 기능 호출
+def insert_cash(money):
+    print("(🚨정수만 입력하세요. 0을 입력시 구매가 종료됩니다.)")
+    print(f"투입금액: {money}원")
+    try :
+        cash = int(input("현금을 투입해주십시오:"))
+        money += cash
+        if money > 0:
+            money = choose(money)
             return money
-        except ValueError:
-            print("현금만 투입해 주십시오(정수만 입력해 주십시오).")  # 입력 값이 정수가 아닌 경우 처리
+        elif money == 0:
+            return money
+    except Exception :
+        print("현금만 투입해 주십시오.") # 입력값이 정수가 아닌 경우 예외 처리
+        return money
 
 # 메뉴 선택 함수
 def choose(inserted) :
@@ -57,23 +58,32 @@ def choose(inserted) :
         if inserted >= prices[menu_num-1]:
             print(f"{menu_num}번 {menu_names[menu_num-1]}을 선택하셨습니다. ")
             # 거스름돈 계산 & 음료 제공 함수 호출
-            process_order(menu_num-1, inserted)
+            inserted = process_order(menu_num-1, inserted)
+            return inserted
         else :
             print("투입 금액이 부족합니다.")
             return inserted
     except Exception:
         print("메뉴에 있는 번호를 선택해주셔야 합니다.")
+        return inserted
 
 # 음료 제공 & 거스름돈 반환 함수
 def process_order(num, inserted2):
-    change = inserted2 - prices[num]
+    inserted2 -= prices[num]
     print(f"{menu_names[num]}가/이 나옵니다. 음료를 받아주세요.")
-    print(f"거스름 돈은 {change}원 입니다. 잔액을 받아주세요.")
-    return change
+    print(f"거스름 돈은 {inserted2}원 입니다.")
+    return inserted2
+
+# 구조
+def vendingmachine():
+    balance = 0
+    while True:
+        print_menu()
+        balance = insert_cash(balance)
+        print("=====================================================")
+        if balance == 0 :
+            break
 
 # 메인 문
 if __name__ == "__main__":
-    while True:
-        print_menu()
-        balance = insert_cash()
-        print("=====================================================")
+    vendingmachine()
