@@ -42,3 +42,15 @@ def insert_cash():
     except ValueError:
         print("현금만 투입해 주십시오(정수만 입력해 주십시오).")  # 입력 값이 정수가 아닌 경우 처리
 insert_cash()
+
+# 메뉴 선택 함수
+def choose(balance) :
+    try :
+        menu_num = int(input("구매하실 음료 번호를 메뉴에서 선택해 주십시오:"))
+        for k, v in menu.items():
+            if balance >= v:
+                print(f"{menu_num}번 {k}을 선택하셨습니다.")
+            else :
+                print("투입 금액이 부족합니다.")
+    except KeyError:
+        print("메뉴에 있는 번호를 선택해주셔야 합니다.")
