@@ -39,9 +39,14 @@ def print_menu():
 def insert_cash():
     while True :
         try:
-            money = int(input("현금을 투입해주십시오(🚨정수만 입력하시오):"))
+            print("(🚨정수만 입력하세요. 0을 입력시 구매가 종료됩니다.)")
+            money=0
+            print(f"투입금액: {money}원")
+            money += int(input("현금을 투입해주십시오:"))
+            if money==0 : break # 루프 탈출(구매 종료)
             print(f"투입하신 금액은 {money}원 입니다.")  # 현재 잔액 표시
             choose(money)  # 메뉴 선택 기능 호출
+            return money
         except ValueError:
             print("현금만 투입해 주십시오(정수만 입력해 주십시오).")  # 입력 값이 정수가 아닌 경우 처리
 
@@ -55,19 +60,20 @@ def choose(inserted) :
             process_order(menu_num-1, inserted)
         else :
             print("투입 금액이 부족합니다.")
+            return inserted
     except Exception:
         print("메뉴에 있는 번호를 선택해주셔야 합니다.")
 
 # 음료 제공 & 거스름돈 반환 함수
 def process_order(num, inserted2):
-    balance = inserted2 - prices[num]
+    change = inserted2 - prices[num]
     print(f"{menu_names[num]}가/이 나옵니다. 음료를 받아주세요.")
-    print(f"거스름 돈은 {balance}원 입니다. 잔액을 받아주세요.")
-    return balance
-
-# 구조
-print_menu()
-insert_cash()
+    print(f"거스름 돈은 {change}원 입니다. 잔액을 받아주세요.")
+    return change
 
 # 메인 문
-#if __name__ == "__main__":
+if __name__ == "__main__":
+    while True:
+        print_menu()
+        balance = insert_cash()
+        print("=====================================================")
