@@ -37,12 +37,13 @@ def print_menu():
 # 현금 투입 함수
 # balance = 0 #이 부분 어떻게 java의 private 변수처럼 외부 접근 방지할지 고민
 def insert_cash():
-    try :
-        money = int(input("현금을 투입해주십시오(🚨정수만 입력하시오):"))
-        print(f"투입하신 금액은 {money}원 입니다.")  # 현재 잔액 표시
-        choose(money)  # 메뉴 선택 기능 호출
-    except ValueError:
-        print("현금만 투입해 주십시오(정수만 입력해 주십시오).")  # 입력 값이 정수가 아닌 경우 처리
+    while True :
+        try:
+            money = int(input("현금을 투입해주십시오(🚨정수만 입력하시오):"))
+            print(f"투입하신 금액은 {money}원 입니다.")  # 현재 잔액 표시
+            choose(money)  # 메뉴 선택 기능 호출
+        except ValueError:
+            print("현금만 투입해 주십시오(정수만 입력해 주십시오).")  # 입력 값이 정수가 아닌 경우 처리
 
 # 메뉴 선택 함수
 def choose(inserted) :
@@ -54,7 +55,7 @@ def choose(inserted) :
             process_order(menu_num-1, inserted)
         else :
             print("투입 금액이 부족합니다.")
-    except KeyError:
+    except Exception:
         print("메뉴에 있는 번호를 선택해주셔야 합니다.")
 
 # 음료 제공 & 거스름돈 반환 함수
