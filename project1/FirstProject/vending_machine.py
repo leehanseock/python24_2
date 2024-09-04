@@ -42,10 +42,11 @@ def insert_cash(money):
     try :
         cash = int(input("현금을 투입해주십시오:"))
         money += cash
-        if money > 0:
+        if cash == 0: #거래 종료
+            print(f"거래가 종료되었습니다. 잔액 {money}원을 받아주십시오.")
+            return 0
+        elif money > 0:
             money = choose(money)
-            return money
-        elif money == 0:
             return money
     except Exception :
         print("현금만 투입해 주십시오.") # 입력값이 정수가 아닌 경우 예외 처리
