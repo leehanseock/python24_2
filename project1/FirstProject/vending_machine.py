@@ -75,7 +75,7 @@ def process_order(num, inserted2):
     print(f"거스름 돈은 {inserted2}원 입니다.")
     return inserted2
 
-# 구조
+# 자판기 함수
 def vendingmachine():
     balance = 0
     while True:
