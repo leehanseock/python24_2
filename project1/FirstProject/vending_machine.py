@@ -1,7 +1,8 @@
 # 과제 : 딕셔너리를 이용한 자동판매기
+from dask.dataframe.methods import try_loc
 
 # 중첩 딕셔너리를 사용한 메뉴 생성
-menu = {1: {'콜라': 500}, 2: {'사이다': 500}, 3: {'물': 800}, 4: {'파워에이드': 1000}}
+menu = {1: {'콜라': 500}, 2: {'사이다': 500}, 3: {'물': 800}, 4: {'파워에이드': 1000}, 5: {'밀키스': 750}}
 # 키 값 추출
 keys = menu.keys()
 # 키 값을 리스트로 변환
@@ -26,10 +27,6 @@ def get_menu_names():
 # get_names() 함수 호출 및 결과 저장
 menu_names = get_menu_names()
 
-# prices 출력
-# print(prices)
-# print('최솟값',min(prices))
-
 # 메뉴 출력 함수
 def print_menu():
     print("🥤한석벤딩🥤")
@@ -40,15 +37,12 @@ def print_menu():
 # 현금 투입 함수
 # balance = 0 #이 부분 어떻게 java의 private 변수처럼 외부 접근 방지할지 고민
 def insert_cash(money):
-    print("(🚨정수만 입력하세요. 0을 입력시 구매가 종료됩니다.)")
+    print("(🚨정수만 입력하세요.)")
     print(f"투입금액: {money}원")
     try :
         cash = int(input("현금을 투입해주십시오:"))
         money += cash
-        if cash == 0: # 거래 종료
-            print(f"거래가 종료되었습니다. 잔액 {money}원을 받아주십시오.")
-            return 0
-        elif money > 0: # 다음 단계로
+        if money > 0: # 다음 단계로
             money = choose(money)
             return money
     except Exception :
@@ -71,6 +65,9 @@ def choose(inserted) :
                 else:
                     print("투입 금액이 부족합니다.")
                     return inserted
+        else :
+            print("현금은 0원 미만이 될 수는 없습니다.")
+            return inserted
     except Exception:
         print("메뉴에 있는 번호를 선택해주셔야 합니다.")
         return inserted
@@ -78,7 +75,7 @@ def choose(inserted) :
 # 음료 제공 & 거스름돈 반환 함수
 def process_order(num, inserted2):
     inserted2 -= prices[num]
-    print(f"{menu_names[num]}가/이 나옵니다. 음료를 받아주세요.")
+    print(f"{menu_names[num]}(가/이) 나옵니다. 음료를 받아주세요.")
     print(f"거스름 돈은 {inserted2}원 입니다.")
     return inserted2
 
@@ -89,8 +86,15 @@ def vendingmachine():
         print_menu()
         balance = insert_cash(balance)
         print("=====================================================")
-        if balance == 0 :
-            break
+        try :
+            answer = input("거래를 계속 하시겠습니까? y/n으로 답해주십시오:")
+            if answer == 'y' :
+                continue
+            elif answer == 'n' :
+                break
+        except Exception :
+            print("'y'나 'n'만 입력이 가능합니다.")
+            continue
 
 # 메인 문
 if __name__ == "__main__":
