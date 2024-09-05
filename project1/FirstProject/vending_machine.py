@@ -1,5 +1,4 @@
 # 과제 : 딕셔너리를 이용한 자동판매기
-from dask.dataframe.methods import try_loc
 
 # 중첩 딕셔너리를 사용한 메뉴 생성
 menu = {1: {'콜라': 500}, 2: {'사이다': 500}, 3: {'물': 800}, 4: {'파워에이드': 1000}, 5: {'밀키스': 750}}
@@ -35,9 +34,7 @@ def print_menu():
     print()
 
 # 현금 투입 함수
-# balance = 0 #이 부분 어떻게 java의 private 변수처럼 외부 접근 방지할지 고민
 def insert_cash(money):
-    money= 0
     print("(🚨정수만 입력하세요.)")
     print(f"투입금액: {money}원")
     try :
@@ -69,6 +66,9 @@ def choose(inserted) :
                 else:
                     print("투입 금액이 부족합니다.")
                     return inserted
+        else :
+            print("메뉴에 있는 번호를 선택해주셔야 합니다.")
+            return inserted
     except Exception:
         print("메뉴에 있는 번호를 선택해주셔야 합니다.")
         return inserted
@@ -77,7 +77,7 @@ def choose(inserted) :
 def process_order(num, inserted2):
     inserted2 -= prices[num]
     print(f"{menu_names[num]}(가/이) 나옵니다. 음료를 받아주세요.")
-    print(f"거스름 돈은 {inserted2}원 입니다.")
+    print(f"잔액은 {inserted2}원 입니다.")
     return inserted2
 
 # 자판기 함수
@@ -87,14 +87,19 @@ def vendingmachine():
         print_menu()
         balance = insert_cash(balance)
         print("=====================================================")
-        try :
-            answer = input("거래를 계속 하시겠습니까? y/n으로 답해주십시오:")
-            if answer == 'y' :
+        try:
+            answer = input("거래를 계속 하시겠습니까? y/n으로 답해주십시오: ").lower()
+            if answer == 'y':
                 continue
-            elif answer == 'n' :
+            elif answer == 'n':
+                print(f"자판기를 종료합니다. 잔액 {balance}원을 받아 주십시오.") #잔액 반환
                 break
-        except Exception :
-            print("'y'나 'n'만 입력이 가능합니다.")
+            else:
+                print("'y'나 'n'만 입력해 주십시오.")
+                print("=====================================================")
+        except Exception:
+            print("'y'나 'n'만 입력해 주십시오.")
+            print("=====================================================")
             continue
 
 # 메인 문
