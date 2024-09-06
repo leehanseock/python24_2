@@ -42,15 +42,14 @@ def choose(inserted) :
         print(f"투입금액: {inserted}원")
         menu_num = int(input("구매하실 음료 번호를 메뉴에서 선택해 주십시오:"))
         if menu_num > 0 and menu_num <= len(key_list) : #입력한 값이 딕셔너리 키값 범위내에 있는지 필터링
-            if menu_num % 1 == 0 : # 입력한 값이 정수인지 필터링
-                if inserted >= value_list[menu_num - 1]:
-                    print(f"{menu_num}번 {key_list[menu_num - 1]}을 선택하셨습니다. ")
-                    # 거스름돈 계산 & 음료 제공 함수 호출
-                    inserted = process_order(menu_num - 1, inserted)
-                    return inserted
-                else:
-                    print("투입 금액이 부족합니다.")
-                    return inserted
+            if inserted >= value_list[menu_num - 1]:
+                print(f"{menu_num}번 {key_list[menu_num - 1]}을 선택하셨습니다. ")
+                # 거스름돈 계산 & 음료 제공 함수 호출
+                inserted = process_order(menu_num - 1, inserted)
+                return inserted
+            else:
+                print("투입 금액이 부족합니다.")
+                return inserted
         else :
             print("메뉴에 있는 번호를 선택해주셔야 합니다.")
             return inserted
@@ -58,14 +57,14 @@ def choose(inserted) :
         print("메뉴에 있는 번호를 선택해주셔야 합니다.")
         return inserted
 
-# 음료 제공 & 거스름돈 반환 함수
+# 음료 제공 함수
 def process_order(num, inserted2):
     inserted2 -= value_list[num]
     print(f"{key_list[num]}(가/이) 나옵니다. 음료를 받아주세요.")
     print(f"잔액은 {inserted2}원 입니다.")
     return inserted2
 
-# 자판기 함수
+# 자판기 함수 (+거스름돈 반환)
 def vendingmachine():
     balance = 0
     while True:
