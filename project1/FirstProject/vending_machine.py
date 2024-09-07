@@ -24,12 +24,12 @@ def insert_cash(money):
     print(f"투입금액: {money}원")
     try :
         cash = int(input("현금을 투입해주십시오:"))
-        money += cash
-        if money >= 0: # 다음 단계로
+        if cash < 0:
+            print("음수 금액은 입력할 수 없습니다. 다시 입력해 주십시오.")
+            return money  # 음수일 경우 money를 변경하지 않고 반환
+        else:
+            money += cash
             money = choose(money)
-            return money
-        elif money < 0 :
-            print("현금이 0원 미만이 될 수는 없습니다.")
             return money
     except Exception :
         print("현금만 투입해 주십시오.") # 입력값이 정수가 아닌 경우 예외 처리
