@@ -15,16 +15,16 @@ before = ['도라에몽', '퉁퉁이', '진구', '비실이', '이슬이',
 
 # 파이썬 리스트를 넘파이 배열로 변환하기
 before_arr = np.array(before)
-print(before_arr)
+# print(before_arr)
 
 # 30개의 좌석번호 생성 후 랜덤하게 섞기
 seatNums = np.arange(30)
 np.random.shuffle(seatNums)
-print(seatNums)
+# print(seatNums)
 
 # 랜덤하게 섞인 좌석번호를 인덱스 번호로 해서 좌석배치 순으로 학생이름 출력('after')
 after = before_arr[seatNums[:30]]
-print(after)
+# print(after)
 
 # 최종 좌석배치표 생성
 endList =["\t", " \t", "  \t", "   \t"]
@@ -60,14 +60,15 @@ endList =["\t", " \t", "  \t", "   \t"]
 #         print(after[k], end=endList[0])
 # print()
 #
-for start in range(0, 30, 10):  # 0부터 30까지 10단위로 끊음 (0~9, 10~19, 20~29)
-    for i in range(start, start + 10):
+for n in range(0, 30, 10):
+    for i in range(n, n + 10):
         if len(after[i]) == 1:
-            print(after[i], end=endList[3])
+            print(i+1, after[i], end=endList[3])
         elif len(after[i]) == 2:
-            print(after[i], end=endList[2])
+            print(i+1, after[i], end=endList[2])
         elif len(after[i]) == 3:
-            print(after[i], end=endList[1])
+            print(i+1, after[i], end=endList[1])
         else:
-            print(after[i], end=endList[0])
-    print()  # 각 구간의 10개 출력 후 줄바꿈
+            print(i+1, after[i], end=endList[0])
+    print()
+    print("--------------------------------------------------------------------------------------------------------------------")
