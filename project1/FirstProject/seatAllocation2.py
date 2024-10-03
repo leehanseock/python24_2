@@ -23,14 +23,11 @@ if len(names) <= 30 :
     for e in range(emptyNum) :
         names.append("빈 좌석")
 
-# 좌석번호와 학생이름 리스트 값을 각각 key 값과 value 값으로 갖는 딕셔너리 생성
-dict = {s:n for s,n in zip(seatNums, names)}
-# print(dict)
-
-# 랜덤 라이브러리의 shuffle 메소드를 이용해 좌석번호 리스트를 섞고, 섞인 좌석번호를 key 값으로 할당하는 딕셔너리를 다시 생성해서 랜덤 좌석배정
-# 랜덤 라이브러리 가져오기
+# 랜덤 라이브러리의 shuffle 메소드를 이용해 좌석번호 리스트를 섞기
 import random as r
 r.shuffle(seatNums)
+
+# 섞인 좌석번호를 key 값으로 할당하는 딕셔너리를 생성해서 랜덤 좌석배정
 shuffled_dict = {ss:n for ss, n in zip(seatNums, names)}
 print(shuffled_dict)
 

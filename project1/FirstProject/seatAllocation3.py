@@ -17,7 +17,6 @@ seating_arrangement = ['Empty'] * 30
 for i, person in enumerate(people):
     seating_arrangement[total_seats[i] - 1] = person
 
-
 # 6. 배정된 자리를 시각화 (3행 10열)
 def visualize_seating(seating_arrangement):
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -36,7 +35,6 @@ def visualize_seating(seating_arrangement):
 
     ax.set_title("Seating Arrangement (3 Rows x 10 Columns)")
     plt.show()
-
 
 # 7. 자리 배치 시각화 실행
 visualize_seating(seating_arrangement)
