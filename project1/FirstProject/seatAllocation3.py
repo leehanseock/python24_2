@@ -18,23 +18,23 @@ for i, person in enumerate(people):
     seating_arrangement[total_seats[i] - 1] = person
 
 
-# 6. 배정된 자리를 시각화
+# 6. 배정된 자리를 시각화 (3행 10열)
 def visualize_seating(seating_arrangement):
     fig, ax = plt.subplots(figsize=(10, 6))
 
-    # 그리드 형태로 시각화
-    ax.set_xlim(0, 6)  # 가로 6열
-    ax.set_ylim(0, 5)  # 세로 5행
+    # 3행 10열 형태로 시각화
+    ax.set_xlim(0, 10)  # 가로 10열
+    ax.set_ylim(0, 3)  # 세로 3행
     ax.set_xticks([])
     ax.set_yticks([])
 
     for i, seat in enumerate(seating_arrangement):
-        row = i // 6
-        col = i % 6
-        ax.text(col + 0.5, 4.5 - row, seat, ha='center', va='center', fontsize=10,
+        row = i // 10  # 10열을 기준으로 행 계산
+        col = i % 10  # 10열을 기준으로 열 계산
+        ax.text(col + 0.5, 2.5 - row, seat, ha='center', va='center', fontsize=10,
                 bbox=dict(facecolor='lightblue', edgecolor='black', boxstyle='round,pad=0.3'))
 
-    ax.set_title("Seating Arrangement")
+    ax.set_title("Seating Arrangement (3 Rows x 10 Columns)")
     plt.show()
 
 
