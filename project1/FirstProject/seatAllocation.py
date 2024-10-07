@@ -12,7 +12,7 @@ before = ['도라에몽', '퉁퉁이', '진구', '비실이', '이슬이',
             '신태일', '매튜', '한소라', '장한솔', '이미나',
             '정석', '리키', '신나리', '샐리', '셜록스',
             '세인트', '이누야샤', '유가영']
-print('학생리스트 : ', before)
+print('학생 리스트 : ', before)
 print('총 학생 수 : ',len(before))
 print('빈 자리 수 : ', 30 - len(before))
 
@@ -37,39 +37,8 @@ after = before_arr[seatNums[:30]]
 
 # 최종 좌석배치표 생성
 endList =["\t", " \t", "  \t", "   \t"]
-#
-# for i in range(10):
-#     if len(after[i]) == 1:
-#         print(after[i], end = endList[3])
-#     elif len(after[i])==2 :
-#         print(after[i], end = endList[2])
-#     elif len(after[i])==3:
-#         print(after[i], end=endList[1])
-#     else :
-#         print(after[i], end = endList[0])
-# print()
-# for j in range(10, 20):
-#     if len(after[j]) == 1:
-#         print(after[j], end=endList[3])
-#     elif len(after[j]) == 2:
-#         print(after[j], end=endList[2])
-#     elif len(after[j]) == 3:
-#         print(after[j], end=endList[1])
-#     else:
-#         print(after[j], end=endList[0])
-# print()
-# for k in range(20, 30):
-#     if len(after[k]) == 1:
-#         print(after[k], end=endList[3])
-#     elif len(after[k]) == 2:
-#         print(after[k], end=endList[2])
-#     elif len(after[k]) == 3:
-#         print(after[k], end=endList[1])
-#     else:
-#         print(after[k], end=endList[0])
-# print()
-#
-print('~좌석배치 결과~')
+print('▶️ 좌석배치 결과 ◀️')
+print("-------------------------------------------------🟩교단🟩-----------------------------------------------------------")
 for n in range(0, 30, 10):
     for i in range(n, n + 10):
         if len(after[i]) == 1:
