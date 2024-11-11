@@ -4,7 +4,6 @@ class VendingMachine:
     def __init__(self):
         self.Menu  = {1: Beverage('콜라',900, 10),
                       2: Beverage("사이다", 1000, 10)}
-
         self.inputMoney = 0
 
     def printMenu(self):
