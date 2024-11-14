@@ -18,6 +18,9 @@ class Beverage:
     def changeName(self, name):
         self.__name = name
 
+    def getSalesCount(self):
+        return self.__salesCount
+
     # 판매
     def getName(self):
         return self.__name
