@@ -8,7 +8,7 @@ class VendingMachine:
                       4: Beverage("물", 750, 1)}
         self.inputMoney = 0
 
-    def printMenu(self):
+    def PrintMenu(self):
         print("-------------------------------------")
         self.ShowBalance()
         for key, value in self.Menu.items():
@@ -84,8 +84,8 @@ class VendingMachine:
     def AdminMode(self):
         admin_menu = {
             1: self.SettingBeverage,
-            2: self.showSalesRecord,
-            3: self.reset
+            2: self.ShowSalesRecord,
+            3: self.Reset
         }
 
         while True:
@@ -117,18 +117,6 @@ class VendingMachine:
                 admin_menu[choice]()  # 해당 번호의 함수 호출
             else:
                 print("잘못된 입력입니다. 다시 시도하십시오.")
-
-    # def InputMoney(self):
-    #     while True :
-    #         try:
-    #             money = int(input("투입할 금액을 입력하십시오:"))
-    #             if money >= 0:
-    #                 self.inputMoney += money
-    #                 break
-    #             else:
-    #                 print("0원 이상을 투입해주세요.")
-    #         except ValueError:
-    #             print("유효한 숫자를 입력해주십시오.")
 
     def SettingBeverage(self):
         for key, value in self.Menu.items():
@@ -162,7 +150,7 @@ class VendingMachine:
                 print("관리자 메뉴에 있는 번호를 입력해주십시오.")
 
     # 판매실적확인
-    def showSalesRecord(self):
+    def ShowSalesRecord(self):
         sum = 0
         for key, value in self.Menu.items():
             str = "{0}번 : {1} {2}개×{3}원 = {4}원".format(
@@ -178,7 +166,7 @@ class VendingMachine:
         print(f"총 판매액: {sum}원")
 
     # 초기화
-    def reset(self):
+    def Reset(self):
         for key, value in self.Menu.items():
             value.changeCount(0)
             value.resetSalesCount()
@@ -188,7 +176,7 @@ class VendingMachine:
     def Operate(self):
         isContinue=True
         while isContinue : # 금액이 투입된 경우
-            self.printMenu()
+            self.PrintMenu()
             self.InputMoney()
             if isContinue: # 금액이 투입된 경우
                 isContinue = self.ChooseMenu() # ChooseMenu의 반환값을 통해 루프 여부 결정
