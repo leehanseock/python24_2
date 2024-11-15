@@ -9,6 +9,7 @@ class VendingMachine:
         self.inputMoney = 0
 
     def printMenu(self):
+        self.ShowBalance()
         for key, value in self.Menu.items():
             str = "{0}번 : {1}\t{2}원\t{3}".format(
                 key,
@@ -17,45 +18,42 @@ class VendingMachine:
                 "" if value.getCount()>=0 else "품절"
             )
             print(str)
-        print("(구매를 종료하시려면 0을 입력해주세요.)")
+        print("(구매를 종료하시려면 메뉴 선택에서 0을 입력해주세요.)")
 
     def InputMoney(self):
         try:
             money = int(input("투입할 금액을 입력하십시오:"))
-            self.inputMoney = money
+            if money > 0:
+                self.inputMoney += money
+            else:
+                print("0원 이상을 투입해주세요.")
         except ValueError:
             print("유효한 숫자를 입력해주십시오.")
-            return True
-        if (money==0):
-            return False
-        else :
-            self.ChooseMenu()
-            return True
 
-    def ReturnMoney(self):
-        tmp = self.inputMoney
-        self.inputMoney = 0
-        print(f"잔액 {tmp}원을 받아주십시오.")
-        print("=====================================")
-        return tmp
-
-    def PrintInputMoney(self):
-        print("투입된 금액: "+str(self.inputMoney)+"원")
+    # 잔액 출력
+    def ShowBalance(self):
+        print("잔액: "+str(self.inputMoney)+"원")
 
     # 메뉴 선택
     def ChooseMenu(self):
         selectedMenu = int(input("메뉴 선택하시오:"))
-        result = selectedMenu in self.Menu.keys()
         if selectedMenu == 999:
             self.AdminMode()
-        elif result == True:
+            return True # 관리자 모드 종료 후 구매 루프 재개
+        elif selectedMenu == 0 :
+            print("구매를 종료합니다.")
+            self.ReturnMoney()
+            return False
+        elif selectedMenu in self.Menu.keys():
             if self.inputMoney< self.Menu[selectedMenu].getPrice():
-                result=False
                 print("금액이 부족합니다")
+                return True
             elif self.Menu[selectedMenu].getCount()>0:
                 self.OutProduct(selectedMenu)
+                return True
             else :
                 print("재고가 부족합니다.")
+                return True
 
     # 음료 제공
     def OutProduct(self, menu):
@@ -70,6 +68,13 @@ class VendingMachine:
                 break
         return isContinue
 
+    # 잔액반환
+    def ReturnMoney(self):
+        tmp = self.inputMoney
+        self.inputMoney = 0
+        print(f"잔액 {tmp}원을 받아주십시오.")
+        print("=====================================")
+        return tmp
     ########################################################
     # 관리자 모드
     def AdminMode(self):
