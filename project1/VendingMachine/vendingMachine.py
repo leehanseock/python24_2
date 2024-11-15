@@ -181,6 +181,7 @@ class VendingMachine:
     def reset(self):
         for key, value in self.Menu.items():
             value.changeCount(0)
+            value.resetSalesCount()
     print("시스템이 초기화되었습니다.")
 
     ########################################################

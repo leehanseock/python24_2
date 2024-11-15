@@ -8,19 +8,6 @@ class Beverage:
         self.__count = count
         self.__salesCount = 0
 
-    # 관리자
-    def changePrice(self, price):
-        self.__price = price
-
-    def changeCount(self, count):
-        self.__count = count
-
-    def changeName(self, name):
-        self.__name = name
-
-    def getSalesCount(self):
-        return self.__salesCount
-
     # 판매
     def getName(self):
         return self.__name
@@ -34,6 +21,19 @@ class Beverage:
     def sale(self):
         self.__count -= 1
         self.__salesCount += 1
+
+    # 관리자
+    def changePrice(self, price):
+        self.__price = price
+
+    def changeCount(self, count):
+        self.__count = count
+
+    def changeName(self, name):
+        self.__name = name
+
+    def getSalesCount(self):
+        return self.__salesCount
 
     def resetSalesCount(self):
         self.__salesCount = 0
