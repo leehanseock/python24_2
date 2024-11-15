@@ -20,8 +20,12 @@ class VendingMachine:
         print("(구매를 종료하시려면 0을 입력해주세요.)")
 
     def InputMoney(self):
-        money = int(input("투입할 금액을 입력하십시오:"))
-        self.inputMoney = money
+        try:
+            money = int(input("투입할 금액을 입력하십시오:"))
+            self.inputMoney = money
+        except ValueError:
+            print("유효한 숫자를 입력해주십시오.")
+            return True
         if (money==0):
             return False
         else :
@@ -143,7 +147,8 @@ class VendingMachine:
                 value.getSalesCount()*value.getPrice()
             )
             sum += value.getSalesCount() * value.getPrice()
-            print(str + "\n")
+            print(str)
+        print("-------------------------------------")
         print(f"총 판매액: {sum}원")
 
     # 초기화
