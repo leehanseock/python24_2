@@ -21,14 +21,16 @@ class VendingMachine:
         print("(구매를 종료하시려면 메뉴 선택에서 0을 입력해주세요.)")
 
     def InputMoney(self):
-        try:
-            money = int(input("투입할 금액을 입력하십시오:"))
-            if money > 0:
-                self.inputMoney += money
-            else:
-                print("0원 이상을 투입해주세요.")
-        except ValueError:
-            print("유효한 숫자를 입력해주십시오.")
+        while True :
+            try:
+                money = int(input("투입할 금액을 입력하십시오:"))
+                if money >= 0:
+                    self.inputMoney += money
+                    break
+                else:
+                    print("0원 이상을 투입해주세요.")
+            except ValueError:
+                print("유효한 숫자를 입력해주십시오.")
 
     # 잔액 출력
     def ShowBalance(self):
