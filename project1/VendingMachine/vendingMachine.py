@@ -9,6 +9,7 @@ class VendingMachine:
         self.inputMoney = 0
 
     def printMenu(self):
+        print("-------------------------------------")
         self.ShowBalance()
         for key, value in self.Menu.items():
             str = "{0}번 : {1}\t{2}원\t{3}".format(
@@ -181,3 +182,15 @@ class VendingMachine:
         for key, value in self.Menu.items():
             value.changeCount(0)
     print("시스템이 초기화되었습니다.")
+
+    ########################################################
+    def Operate(self):
+        isContinue=True
+        while isContinue : # 금액이 투입된 경우
+            self.printMenu()
+            self.InputMoney()
+            if isContinue: # 금액이 투입된 경우
+                isContinue = self.ChooseMenu() # ChooseMenu의 반환값을 통해 루프 여부 결정
+                # 사용자가 메뉴에서 0을 입력한 경우에만 루프를 종료
+                if not isContinue:
+                    break

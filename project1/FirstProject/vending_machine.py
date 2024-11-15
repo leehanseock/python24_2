@@ -65,7 +65,7 @@ def process_order(num, inserted2):
     return inserted2
 
 # 자판기 함수 (+거스름돈 반환)
-def vendingmachine():
+def vendingmachine1():
     balance = 0
     while True:
         print_menu()
@@ -88,4 +88,4 @@ def vendingmachine():
 
 # 메인 문
 if __name__ == "__main__":
-    vendingmachine()
+    vendingmachine1()
