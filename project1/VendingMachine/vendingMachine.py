@@ -43,6 +43,7 @@ class VendingMachine:
             self.AdminMode()
             return True # 관리자 모드 종료 후 구매 루프 재개
         elif selectedMenu == 0 :
+            print("-------------------------------------")
             print("구매를 종료합니다.")
             self.ReturnMoney()
             return False
@@ -116,6 +117,18 @@ class VendingMachine:
             else:
                 print("잘못된 입력입니다. 다시 시도하십시오.")
 
+    # def InputMoney(self):
+    #     while True :
+    #         try:
+    #             money = int(input("투입할 금액을 입력하십시오:"))
+    #             if money >= 0:
+    #                 self.inputMoney += money
+    #                 break
+    #             else:
+    #                 print("0원 이상을 투입해주세요.")
+    #         except ValueError:
+    #             print("유효한 숫자를 입력해주십시오.")
+
     def SettingBeverage(self):
         for key, value in self.Menu.items():
             str = "{0}번 : {1}\t{2}원\t재고량:{3}개".format(
@@ -125,21 +138,26 @@ class VendingMachine:
                 value.getCount()
             )
             print(str)
-        toChange = int(input("변경하려는 음료 번호를 입력하십시오:"))
-        result2 = toChange in self.Menu.keys()
-        if result2 == True:
-            print("음료 세팅 : 1. 음료 변경 2. 음료 가격 변경 3. 음료 재고 변경")
-            settingMenu = int(input("메뉴 번호: "))
-            if settingMenu == 1 :
-                changedName = input("변경하려는 음료명을 입력하십시오:")
-                self.Menu[toChange].changeName(changedName)
-            elif settingMenu == 2 :
-                changedPrice = int(input("변경하려는 음료가격을 입력하십시오:"))
-                self.Menu[toChange].changePrice(changedPrice)
-            elif settingMenu == 3 :
-                changedStockNum = int(input("변경하려는 재고량을 입력하십시오:"))
-                self.Menu[toChange].changeCount(changedStockNum)
-            else :
+        while True :
+            try:
+                toChange = int(input("변경하려는 음료 번호를 입력하십시오:"))
+                result2 = toChange in self.Menu.keys()
+                if result2 == True:
+                    print("음료 세팅 : 1. 음료 변경 2. 음료 가격 변경 3. 음료 재고 변경")
+                    settingMenu = int(input("메뉴 번호: "))
+                    if settingMenu == 1:
+                        changedName = input("변경하려는 음료명을 입력하십시오:")
+                        self.Menu[toChange].changeName(changedName)
+                        break
+                    elif settingMenu == 2:
+                        changedPrice = int(input("변경하려는 음료가격을 입력하십시오:"))
+                        self.Menu[toChange].changePrice(changedPrice)
+                        break
+                    elif settingMenu == 3:
+                        changedStockNum = int(input("변경하려는 재고량을 입력하십시오:"))
+                        self.Menu[toChange].changeCount(changedStockNum)
+                        break
+            except ValueError:
                 print("관리자 메뉴에 있는 번호를 입력해주십시오.")
 
     # 판매실적확인
