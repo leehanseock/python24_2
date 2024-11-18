@@ -1,6 +1,5 @@
 from pyasn1_modules.rfc2985 import counterSignature
 
-
 class Beverage:
     def __init__(self, name, price, count):
         self.__name = name

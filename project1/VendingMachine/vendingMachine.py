@@ -87,7 +87,6 @@ class VendingMachine:
             2: self.ShowSalesRecord,
             3: self.Reset
         }
-
         while True:
             # 관리자 메뉴를 출력합니다.
             print("\n=== 관리자 메뉴 ===")
