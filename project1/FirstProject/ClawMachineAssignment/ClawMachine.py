@@ -1,6 +1,16 @@
+from project1.FirstProject.ClawMachineAssignment.Doll import Doll
 from project1.FirstProject.ClawMachineAssignment.VM import VM
 # 인형뽑기 기계 클래스
 class ClawMachine(VM):
+    def __init__(self):
+        # 인형 객체 생성
+        self.Dolls = {1: Doll("도라에몽",5),
+                      2: Doll("피카츄", 7),
+                      3: Doll("케로로", 3),
+                      4: Doll("커비", 3)
+                      }
+        self.inputMoney = 0
+
     # 기계 구동
     def Operate(self):
         isContinue = True
