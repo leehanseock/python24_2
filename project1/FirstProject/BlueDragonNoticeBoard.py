@@ -1,9 +1,11 @@
 import csv
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 
 # 단일 페이지 URL
 url = "https://youth.seoul.go.kr/infoData/sprtInfo/list.do?key=2309130006&sc_ctgry=PDS_04_YC"
+base_url = "https://youth.seoul.go.kr"  # 기본 URL
 hdr = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
 }
@@ -19,7 +21,7 @@ filename = "청년지원정보_마음건강.csv"
 with open(filename, mode="w", encoding="utf-8-sig", newline="") as f:
     writer = csv.writer(f)
     # CSV 헤더 작성
-    attributes = ["정책명", "모집상태"]
+    attributes = ["정책명", "모집상태", "이미지 URL"]
     writer.writerow(attributes)
 
     # 클래스 이름과 모집 상태 매핑
@@ -43,14 +45,20 @@ with open(filename, mode="w", encoding="utf-8-sig", newline="") as f:
             # 모집 상태 추출 (class 이름에 따라 상태 매핑)
             status_tag = feed_item.find("span", class_=lambda x: x and x.startswith("state"))
             if status_tag:
-                class_name = " ".join(status_tag["class"])  # 클래스 이름을 문자열로 변환
+                class_name = " ".join(status_tag["class"])
                 status = status_mapping.get(class_name, "정보 없음")  # 매핑된 상태 가져오기
             else:
                 status = "정보 없음"
 
+            # 이미지 URL 추출 (src 속성만 가져오기)
+            img_tag = feed_item.find("img")
+            imgurl = img_tag['src'] if img_tag else ""  # src 속성을 가져옴
+            if imgurl:
+                imgurl = urljoin(base_url, imgurl)  # 상대 경로를 절대 경로로 변환
+
             # 데이터 출력 및 CSV 저장
-            print(f"정책명: {title}, 모집상태: {status}")
-            writer.writerow([title, status])
+            print(f"정책명: {title}, 모집상태: {status}, 이미지 URL: {imgurl}")
+            writer.writerow([title, status, imgurl])
 
         except Exception as e:
             print(f"오류 발생: {e}")
