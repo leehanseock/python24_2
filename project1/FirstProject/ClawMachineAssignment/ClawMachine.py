@@ -19,14 +19,21 @@ class ClawMachine(VM):
         isContinue = True
         while isContinue:  # 금액이 투입된 경우
             isContinue = self.WouldUStart()
-            if not isContinue: #WouldUStart에서 'n' 선택시
-                self.inputMoney = 0
+            if not isContinue:  # WouldUStart에서 'n' 선택시
                 print("게임을 종료합니다.")
+                self.ReturnMoney()
                 break
-            self.InputMoney()
+            self.InputMoney()  # 금액 입력
+            if self.inputMoney < self.playCost:
+                print(f"잔액이 부족합니다. {self.playCost}원 이상을 투입해야 합니다.")
+                continue  # 금액이 부족하면 다시 시작
+
             self.ShowDolls()
             self.Game()
-        print("프로그램이 종료됩니다.")
+
+            # 게임이 끝난 후 게임 요금 차감
+            self.inputMoney -= self.playCost
+            print(f"남은 잔액: {self.inputMoney}원")
 
     def WouldUStart(self):
         while True:
@@ -44,30 +51,12 @@ class ClawMachine(VM):
     def InputMoney(self):
         while True:
             try:
-                if self.inputMoney > 0:
-                    self.inputMoney -= self.playCost  # 남은 금액 계산
-                    print(f"현재 남은 금액: {self.inputMoney}원")
-                    # 잔액이 1000원 이상이면 0원을 입력해도 넘어가게 하기
-                    if self.inputMoney >= 1000:
-                        print("이전 게임에서 남은 금액으로 게임을 계속합니다.")
-                        self.inputMoney -= self.playCost
-                        break
-
-                # 잔액이 부족한 경우에는 입력받기
                 money = int(input("투입할 금액을 입력하십시오:"))
-
-                if money < 0:
-                    print("음수 금액은 입력할 수 없습니다. 다시 입력해주세요.")
-                    continue
-
-                if self.inputMoney > 0 and self.inputMoney < 1000:
-                    money += self.inputMoney
-
-                if money >= self.playCost:
-                    self.inputMoney = money
+                if money >= 0:
+                    self.inputMoney += money
                     break
-                elif money < self.playCost:
-                    print(f"투입 금액이 {self.playCost}원 이상이어야만 합니다.")
+                else:
+                    print("0원 이상을 투입해주세요.")
             except ValueError:
                 print("유효한 숫자를 입력해주십시오.")
 

@@ -4,19 +4,6 @@ class VM:
         self.name = name
         self.inputMoney = 0
 
-    # def PrintMenu(self):
-    #     print("-------------------------------------")
-    #     self.ShowBalance()
-    #     for key, value in self.Menu.items():
-    #         str = "{0}번 : {1}\t{2}원\t{3}".format(
-    #             key,
-    #             value.getName(),
-    #             value.getPrice(),
-    #             "" if value.getCount() >= 0 else "품절"
-    #         )
-    #         print(str)
-    #     print("(구매를 종료하시려면 메뉴 선택에서 0을 입력해주세요.)")
-
     # 금액 투입
     def InputMoney(self):
         while True:
@@ -34,48 +21,10 @@ class VM:
     def ShowBalance(self):
         print("잔액: " + str(self.inputMoney) + "원")
 
-    # 메뉴 선택
-    # def ChooseMenu(self):
-    #     selectedMenu = int(input("메뉴 선택하시오:"))
-    #     if selectedMenu == 999:
-    #         self.AdminMode()
-    #         return True  # 관리자 모드 종료 후 구매 루프 재개
-    #     elif selectedMenu == 0:
-    #         print("-------------------------------------")
-    #         print("구매를 종료합니다.")
-    #         self.ReturnMoney()
-    #         return False
-    #     elif selectedMenu in self.Menu.keys():
-    #         if self.inputMoney < self.Menu[selectedMenu].getPrice():
-    #             print("금액이 부족합니다")
-    #             return True
-    #         elif self.Menu[selectedMenu].getCount() > 0:
-    #             self.OutProduct(selectedMenu)
-    #             return True
-    #         else:
-    #             print("재고가 부족합니다.")
-    #             return True
-
-    # 음료 제공
-    # def OutProduct(self, menu):
-    #     self.Menu[menu].sale()
-    #     print(f"{self.Menu[menu].getName()}가(이) 나왔습니다.")
-    #     self.inputMoney -= self.Menu[menu].getPrice()
-    #     isContinue = False
-    #
-    #     for key, value in self.Menu.items():
-    #         if self.inputMoney >= value.getPrice():
-    #             isContinue = True
-    #             break
-    #     return isContinue
-
     # 잔액반환
     def ReturnMoney(self):
-        tmp = self.inputMoney
-        self.inputMoney = 0
-        print(f"잔액 {tmp}원을 받아주십시오.")
+        print(f"잔액 {self.inputMoney}원을 받아주십시오.")
         print("=====================================")
-        return tmp
 ########################################################
     # 관리자 모드
     # def AdminMode(self):
