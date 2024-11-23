@@ -29,7 +29,7 @@ class ClawMachine(VM):
         print("프로그램이 종료됩니다.")
 
     def WouldUStart(self):
-        while True:  # 올바른 입력이 들어올 때까지 반복
+        while True:
             print("-------------------------------------")
             self.ShowBalance()
             print(f"게임 한 판: {self.playCost}원")
@@ -45,23 +45,23 @@ class ClawMachine(VM):
         while True:
             try:
                 if self.inputMoney > 0:
-                    remaining_balance = self.inputMoney - self.playCost  # 남은 금액 계산
-                    print(f"현재 남은 금액: {remaining_balance}원")
-                    # 차액이 1000원 이상이면 0원을 입력해도 넘어가게 함
-                    if remaining_balance >= 1000:
+                    self.inputMoney -= self.playCost  # 남은 금액 계산
+                    print(f"현재 남은 금액: {self.inputMoney}원")
+                    # 잔액이 1000원 이상이면 0원을 입력해도 넘어가게 하기
+                    if self.inputMoney >= 1000:
                         print("이전 게임에서 남은 금액으로 게임을 계속합니다.")
                         self.inputMoney -= self.playCost
                         break
 
-                # 첫 번째 판 또는 이전 판에서 금액이 부족한 경우에는 입력받기
+                # 잔액이 부족한 경우에는 입력받기
                 money = int(input("투입할 금액을 입력하십시오:"))
 
                 if money < 0:
                     print("음수 금액은 입력할 수 없습니다. 다시 입력해주세요.")
                     continue
 
-                if self.inputMoney > 0 and remaining_balance < 1000:
-                    money += self.inputMoney  # 이전에 투입한 금액을 더해줌
+                if self.inputMoney > 0 and self.inputMoney < 1000:
+                    money += self.inputMoney
 
                 if money >= self.playCost:
                     self.inputMoney = money
@@ -103,7 +103,7 @@ class ClawMachine(VM):
     def Game(self):
         # 뽑을 인형 선택
         selected_doll = self.SelectDoll()
-        # 이미 뽑힌 인형선택시?
+
         if selected_doll is None:
             print("잘못된 선택입니다. 게임을 다시 시도해주세요.")
             return True  # 다시 게임을 진행하도록 False 대신 True를 반환
