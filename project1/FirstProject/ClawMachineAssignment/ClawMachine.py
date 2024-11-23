@@ -12,6 +12,7 @@ class ClawMachine(VM):
                       3: Doll("kirby", size, 3),
                       4: Doll("dora", size, 4)
                       }
+        self.playCount = 0
         self.playCost = playCost
         self.inputMoney = 0
 
@@ -45,6 +46,9 @@ class ClawMachine(VM):
                 return True
             elif wouldU == 'n':
                 return False
+            elif wouldU == '999':
+                self.AdminMode()
+                return True
             else:
                 print("잘못된 입력입니다. y 또는 n만 입력해주십시오.")
 
@@ -117,8 +121,10 @@ class ClawMachine(VM):
         if success:
             print(f"축하합니다! {selected_doll.getName()} 뽑기 성공!")
             selected_doll.prize()
+            self.playCount += 1
             del self.Dolls[selected_id]
         else:
+            self.playCount += 1
             print(f"아쉽습니다. {selected_doll.getName()} 뽑기 실패!")
 
         # 결과 그래프
@@ -133,3 +139,51 @@ class ClawMachine(VM):
         plt.title("Claw Machine")
         plt.legend()
         plt.show()
+
+######################################################################################################
+    # 관리자 모드 오버라이딩
+    def AdminMode(self):
+        admin_menu = {
+            1: self.ShowSalesRecord,
+            2: self.Reset
+        }
+        while True:
+            # 관리자 메뉴를 출력합니다.
+            print("\n=== 인형 뽑기 관리자 메뉴 ===")
+            print("1: 판매 실적 확인")
+            print("2: 시스템 초기화")
+            print("0: 종료")
+            try:
+                choice = int(input("원하는 번호를 입력하십시오: "))
+            except ValueError:
+                print("유효한 숫자를 입력해주십시오.")
+                continue
+            if choice == 0:
+                print("관리자 모드를 종료합니다.")
+                print("=====================================")
+                break
+            elif choice in admin_menu:
+                admin_menu[choice]()  # 해당 번호의 함수 호출
+            else:
+                print("잘못된 입력입니다. 다시 시도하십시오.")
+
+    # 총 판매수익
+    def ShowSalesRecord(self):
+        total_sales = self.playCount * self.playCost
+        print(f"총 판매액: {total_sales}원")
+
+    # 시스템 초기화 (인형 뽑기용)
+    def Reset(self):
+        for doll in self.Dolls.values():
+            while True:
+                try:
+                    size = int(input("초기화시 적용할 뽑기판 사이즈를 입력해주십시오:"))
+                    if size > 0:
+                        doll.resetPosition(size)
+                        break
+                    else:
+                        print("0을 초과하는 정수를 입력해주십시오.")
+                except ValueError:
+                    print("유효한 숫자를 입력해주십시오.")
+            doll.resetCapturedCount()
+        print("시스템이 초기화되었습니다.")
