@@ -3,7 +3,6 @@ import random
 class Doll:
     def __init__(self, name, size, id):
         self.__name = name
-        self.__capturedCount = 0
         self.__x = random.randint(0, size-1)
         self.__y = random.randint(0, size - 1)
         self.__id = id
@@ -24,13 +23,6 @@ class Doll:
     # 관리자 모드
     def changeName(self, name):
         self.__name = name
-
-    def getCapturedCount(self):
-        return self.__capturedCount
-
-    # 뽑힌 인형 개수 초기화
-    def resetCapturedCount(self):
-        self.__capturedCount = 0
 
     # 인형 좌표 초기화
     def resetPosition(self, board_size):

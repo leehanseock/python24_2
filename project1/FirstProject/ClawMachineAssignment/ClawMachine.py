@@ -174,6 +174,19 @@ class ClawMachine(VM):
 
     # 시스템 초기화 (인형 뽑기용)
     def Reset(self):
+        self.playCount = 0
+        # 인형 이름 변경
+        for doll in self.Dolls.values():
+            while True:
+                name = input("적용할 인형 이름을 입력해주십시오: ").strip()
+                # 빈 문자열인지 확인
+                if name:
+                    doll.changeName(name)
+                    break
+                else:
+                    print("유효한 이름을 입력해주십시오.")
+
+        #인형 위치 초기화
         for doll in self.Dolls.values():
             while True:
                 try:
@@ -185,5 +198,4 @@ class ClawMachine(VM):
                         print("0을 초과하는 정수를 입력해주십시오.")
                 except ValueError:
                     print("유효한 숫자를 입력해주십시오.")
-            doll.resetCapturedCount()
         print("시스템이 초기화되었습니다.")
