@@ -34,8 +34,6 @@ if __name__ == '__main__':
         Car("프리우스", "베이지"),
         SportsCar("람보르기니", "노랑")
     ]
-    # for car in CarList:
-        # print(f"차 이름: {car.name}, 색상: {car.color}")
 
     i = 0
     while i < len(CarList):
